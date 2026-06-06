@@ -8,23 +8,17 @@ public class HechizoTierra extends Hechizo {
 		this.mejoraDefensa = mejoraDefensa;
 	}
 
-	
 	public int getMejoraDefensa() {
 		return mejoraDefensa;
 	}
-
 
 	public void setMejoraDefensa(int mejoraDefensa) {
 		this.mejoraDefensa = mejoraDefensa;
 	}
 
-
 	@Override
 	public double calcularPuntuacion() {
-		return (this.dano * this.mejoraDefensa)/2.0;
+		return (this.dano * this.mejoraDefensa) / 2.0;
 	}
-
-
-
 
 }
