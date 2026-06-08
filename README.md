@@ -34,9 +34,9 @@ La arquitectura se encuentra desacoplada en tres capas principales (Lógica y Do
 │   │   └── Mago.java           # Clase de entidad que representa al hechicero y muta sus atributos
 │   │
 │   └── logica/                 # Capa de Negocio (Reglas, procesamiento y persistencia)
-│       ├── Sistema.java  # Interfaz / Contrato de abstracción de las operaciones
+│       ├── Sistema.java        # Interfaz / Contrato de abstracción de las operaciones
 │       ├── SistemaImpl.java    # Motor principal del juego implementado con el patrón SINGLETON
 │       └── App.java            # Gestión de menús divididos (Administrador y Analista) y control de excepciones
 │                 
-├── Hechizos.txt                     # Archivo de persistencia para el repertorio de hechizos
-└── Magos.txt                        # Archivo de persistencia para los magos y sus relaciones
+├── Hechizos.txt                # Archivo de persistencia para el repertorio de hechizos
+└── Magos.txt                   # Archivo de persistencia para los magos y sus relaciones
