@@ -118,103 +118,194 @@ public class SistemaImpl implements Sistema {
 			System.out.println("Error al guardar Hechizos.txt" + e.getMessage());
 		}
 		//guardar magos
+		try(BufferedWriter escritor = new BufferedWriter(new FileWriter("Magos.txt"))) {
+			for(Mago m: magos) {
+				escritor.write(m.txtFormato());
+				escritor.newLine();
+				
+			}
+		}catch(IOException e) {
+			System.out.println("Error al guardar Magos.txt" + e.getMessage());
+		}
 
 	}
 
 	@Override
-	public boolean agregarMago() {
+	public boolean agregarMago(String nombre) {
+		if(buscarMago(nombre)!= null ) return false;
+		magos.add(new Mago(nombre));
+		guardarDatos();
+		return true;
+	}
+
+	@Override
+	public boolean modificarMago(String nombreAntiguo, String nombreNuevo) {
+		Mago m = buscarMago(nombreAntiguo);
+		if(m != null && (nombreAntiguo.equalsIgnoreCase(nombreNuevo) || buscarMago(nombreNuevo) == null)) {
+			m.setNombre(nombreNuevo);
+			guardarDatos();
+			return true;
+		}
 		return false;
-		// TODO Auto-generated method stub
+	
 
 	}
 
 	@Override
-	public boolean modificarMago() {
+	public boolean eliminarMago(String nombre) {
+		Mago m = buscarMago(nombre);
+		if(m != null) {
+			magos.remove(m);
+			guardarDatos();
+			return true;
+		}
 		return false;
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
-	public boolean eliminarMago() {
+	public boolean agregarHechizoMago(String nombreMago, String nombreHechizo) {
+		Mago m = buscarMago(nombreMago);
+		Hechizo h = buscarHechizo(nombreHechizo);
+		if(m != null && h != null) {
+			m.agregarHechizo(h);
+			guardarDatos();
+			return true;
+		}
 		return false;
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
-	public boolean agregarHechizoMago() {
+	public boolean eliminarHechizoMago(String nombreMago, String nombreHechizo) {
+		Mago m = buscarMago(nombreMago);
+		Hechizo h = buscarHechizo(nombreHechizo);
+		if(m != null && h != null) {
+			m.eliminarHechizo(h);
+			guardarDatos();
+			return true;
+		}
 		return false;
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
-	public boolean modificarHechizoMago() {
+	public boolean agregarHechizo(Hechizo h) {
+		if(buscarHechizo(h.getNombre()) != null) return false;
+		hechizos.add(h);
+		guardarDatos();
+		return true;
+	}
+
+	@Override
+	public boolean modificarHechizo(String nombre, Hechizo nuevoHechizo) {
+		Hechizo antiguo = buscarHechizo(nombre);
+        if (antiguo != null) {
+            int indice = hechizos.indexOf(antiguo);
+            hechizos.set(indice, nuevoHechizo);
+           
+            for (Mago m : magos) {
+                if (m.getHechizosMago().contains(antiguo)) {
+                    m.eliminarHechizo(antiguo);
+                    m.agregarHechizo(nuevoHechizo);
+                }
+            }
+            guardarDatos();
+            return true;
+        }
 		return false;
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
-	public boolean eliminarHechizoMago() {
+	public boolean eliminarHechizo(String nombre) {
+		Hechizo h = buscarHechizo(nombre);
+        if (h != null) {
+            hechizos.remove(h);
+            for (Mago m : magos) {
+                m.eliminarHechizo(h);
+            }
+            guardarDatos();
+            return true;
+        }
 		return false;
-		// TODO Auto-generated method stub
+	}
+
+
+	@Override
+	public List<Hechizo> diezMejoresHechizos() {
+		List<Hechizo> copia = new ArrayList<>(hechizos);
+        copia.sort((h1, h2) -> Double.compare(h2.calcularPuntuacion(), h1.calcularPuntuacion()));
+        return copia.subList(0, Math.min(10, copia.size()));
+	}
+
+	@Override
+	public List<Mago> tresMejoresMagos() {
+		List<Mago> copia = new ArrayList<>(magos);
+        copia.sort((m1, m2) -> Double.compare(m2.calcularPuntuacionTotal(), m1.calcularPuntuacionTotal()));
+        return copia.subList(0, Math.min(3, copia.size()));
+	}
+
+	@Override
+	public List<Hechizo> mostrarHechizos() {
+		return hechizos;
+		
 
 	}
 
 	@Override
-	public List diezMejoresHechizos() {
-		return hechizos;
-		// TODO Auto-generated method stub
+	public List<Mago> mostrarMagos() {
+		return magos;
+		
 
 	}
 
 	@Override
-	public List tresMejoresMagos() {
-		return hechizos;
-		// TODO Auto-generated method stub
-
+	public List<String> mostrarHechizosPuntuacion() {
+		List<String> reporte = new ArrayList<>();
+	    
+	    for (Hechizo h : hechizos) {
+	        
+	        double puntaje = h.calcularPuntuacion(); 
+	       
+	        String linea = h.txtFormato()+ " | Puntuación: " + puntaje;
+	        reporte.add(linea);
+	    }
+	    
+	    return reporte;
 	}
 
 	@Override
-	public List mostrarHechizos() {
-		return hechizos;
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List mostrarMagos() {
-		return hechizos;
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List mostrarHechizosPuntuacion() {
-		return hechizos;
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public List mostrarMagosPuntuacion() {
-		return hechizos;
-		// TODO Auto-generated method stub
-
+	public List<String> mostrarMagosPuntuacion() {
+		List<String> reporte = new ArrayList<>();
+	    
+	    for (Mago m : magos) {
+	        
+	        double puntajeTotal = m.calcularPuntuacionTotal();
+	        
+	        
+	        String linea = m.txtFormato() + " | Puntuación Total: " + puntajeTotal;
+	        reporte.add(linea);
+	    }
+	    
+	    return reporte;
 	}
 
 	@Override
 	public Mago buscarMago(String nombre) {
-		// TODO Auto-generated method stub
+		for(Mago m: magos) {
+			if(m.getNombre().equalsIgnoreCase(nombre)) {
+				return m;
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public Hechizo buscarHechizo(String nombre) {
-		// TODO Auto-generated method stub
+		for(Hechizo h: hechizos) {
+			if(h.getNombre().equalsIgnoreCase(nombre)){
+				return h;
+			}
+		}
 		return null;
 	}
 
+	
 }
