@@ -16,6 +16,15 @@ public class Mago {
 		return nombre;
 	}
 
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	
+
+	public ArrayList<Hechizo> getHechizosMago() {
+		return hechizosMago;
+	}
+
 	public void eliminarHechizo(Hechizo h) {
 		hechizosMago.remove(h);
 	}
@@ -24,6 +33,26 @@ public class Mago {
 		if (!hechizosMago.contains(h)) {
 			hechizosMago.add(h);
 		}
+	}
+
+	public double calcularPuntuacionTotal() {
+		double total = 0;
+		for (Hechizo h: hechizosMago) {
+			total += h.calcularPuntuacion();
+		}
+		return total;
+	}
+	
+	public String txtFormato() {
+		StringBuilder escritor = new StringBuilder();
+        escritor.append(nombre).append(";");
+        for (int i = 0; i < hechizosMago.size(); i++) {
+            escritor.append(hechizosMago.get(i).getNombre());
+            if (i < hechizosMago.size() - 1) {
+                escritor.append("|");
+            }
+        }
+        return escritor.toString();
 	}
 
 }
