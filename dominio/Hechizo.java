@@ -25,4 +25,5 @@ public abstract class Hechizo {
 	}
 
 	public abstract double calcularPuntuacion();
+	public abstract String txtFormato();
 }

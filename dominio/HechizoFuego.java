@@ -22,4 +22,9 @@ public class HechizoFuego extends Hechizo {
 		this.duracionQuemadura = duracionQuemadura;
 	}
 
+	@Override
+	public String txtFormato() {
+		return nombre + ";Fuego;" + dano + ";" + duracionQuemadura;
+	}
+
 }

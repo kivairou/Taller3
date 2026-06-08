@@ -32,4 +32,9 @@ public class HechizoPlanta extends Hechizo {
 		return (this.dano + (this.cantPlantas * this.duracionStun));
 	}
 
+	@Override
+	public String txtFormato() {
+		return nombre + ";Planta;" + dano + ";" + duracionStun + "," + cantPlantas;
+	}
+
 }

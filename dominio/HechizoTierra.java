@@ -21,4 +21,9 @@ public class HechizoTierra extends Hechizo {
 		return (this.dano * this.mejoraDefensa) / 2.0;
 	}
 
+	@Override
+	public String txtFormato() {
+		return nombre + ";Tierra;" + dano + ";" + mejoraDefensa;
+	}
+
 }

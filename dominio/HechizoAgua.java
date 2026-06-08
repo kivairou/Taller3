@@ -31,4 +31,9 @@ public class HechizoAgua extends Hechizo {
 		return (this.dano + this.cantidadHeal + this.presionAgua) * 2.0;
 	}
 
+	@Override
+	public String txtFormato() {
+		return nombre + ";Agua;" + dano + ";" + cantidadHeal + "," + presionAgua;
+	}
+
 }
