@@ -1,3 +1,6 @@
+// Tomás Ignacio Zepeda Velasquez | 21789061-6 | ICCI
+// Kevin Matias Mauricio Zamora Riquelme | 21578521-1 | ICCI
+
 package logica;
 
 import java.util.Scanner;
@@ -42,7 +45,7 @@ public class App {
 		} while (opcion != 3);
 
 	}
-
+	// Menu Analista
 	private static void menuAnalista() {
 		int opcion = 0;
 
@@ -113,7 +116,7 @@ public class App {
 		} while (opcion != 7);
 
 	}
-
+	// Menu Administrador
 	private static void menuAdmin() {
 		int opcion = 0;
 
@@ -177,7 +180,7 @@ public class App {
 		} while (opcion != 7);
 
 	}
-
+	// 
 	private static void modificarHechizo() {
 		System.out.print("Ingrese el nombre del hechizo a modificar: ");
         String nombre = scan.nextLine();
@@ -298,6 +301,7 @@ public class App {
             } else if (op == 2) {
                 System.out.print("Ingrese el nombre del Hechizo a enseñarle: ");
                 String hechizoEnsenar = scan.nextLine();
+                // Vincula un hechizo existente a la lista interna del mago seleccionado
                 if (sistema.agregarHechizoMago(antiguoNom, hechizoEnsenar)) {
                     System.out.println("Hechizo aprendido con exito!");
                 } else {
@@ -306,6 +310,7 @@ public class App {
             } else if (op == 3) {
                 System.out.print("Ingrese el nombre del Hechizo a olvidar: ");
                 String hechizoOlvidar = scan.nextLine();
+                // Remueve el hechizo específico de la lista interna del mago
                 if (sistema.eliminarHechizoMago(antiguoNom, hechizoOlvidar)) {
                     System.out.println("El mago ha olvidado el hechizo correctamente");
                 } else {

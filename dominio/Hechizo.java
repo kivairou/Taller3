@@ -23,7 +23,8 @@ public abstract class Hechizo {
 	public int getDano() {
 		return dano;
 	}
-
+	// metodo abstracto para que cada subclase calcule su puntuacion
 	public abstract double calcularPuntuacion();
+	// metodo abstracto para el guardado de datos
 	public abstract String txtFormato();
 }

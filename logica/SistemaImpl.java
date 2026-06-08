@@ -12,7 +12,7 @@ import dominio.*;
 import java.util.Scanner;
 
 public class SistemaImpl implements Sistema {
-
+	// Instancia única global del sistema (Patrón Singleton)
 	private static SistemaImpl instancia;
 	
 	private ArrayList<Mago> magos;
@@ -231,6 +231,7 @@ public class SistemaImpl implements Sistema {
 	@Override
 	public List<Hechizo> diezMejoresHechizos() {
 		List<Hechizo> copia = new ArrayList<>(hechizos);
+		// Expresión Lambda comparadora basada en cálculos dinámicos
         copia.sort((h1, h2) -> Double.compare(h2.calcularPuntuacion(), h1.calcularPuntuacion()));
         return copia.subList(0, Math.min(10, copia.size()));
 	}
@@ -238,6 +239,7 @@ public class SistemaImpl implements Sistema {
 	@Override
 	public List<Mago> tresMejoresMagos() {
 		List<Mago> copia = new ArrayList<>(magos);
+		// Lambda comparadora basada en la sumatoria agregada de las listas internas del mago
         copia.sort((m1, m2) -> Double.compare(m2.calcularPuntuacionTotal(), m1.calcularPuntuacionTotal()));
         return copia.subList(0, Math.min(3, copia.size()));
 	}
