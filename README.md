@@ -40,3 +40,22 @@ La arquitectura se encuentra desacoplada en tres capas principales (Lógica y Do
 │                 
 ├── Hechizos.txt                # Archivo de persistencia para el repertorio de hechizos
 └── Magos.txt                   # Archivo de persistencia para los magos y sus relaciones
+```
+
+---
+## Instrucciones de Ejecución
+### En Visual Studio Code
+1. Abre VS Code y selecciona **File > Open Folder**.  
+   Elige la carpeta raíz del proyecto (donde está `src/`).
+2. Instala la extensión **Java Extension Pack** si no la tienes.
+3. Abre el archivo `App.java` dentro de `src/`.
+4. Haz clic en el botón **Run** que aparece arriba del método `main`.
+5. El programa se ejecutará en la terminal integrada de VS Code.
+
+### En Eclipse
+1. Abre Eclipse y selecciona **File > New > Java Project**.
+2. Asigna un nombre al proyecto (ejemplo: `Taller03`).
+3. Copia la carpeta `src/` y los archivos dentro del proyecto.
+4. Asegúrate de que `App.java` esté dentro del paquete `src`.
+5. Haz clic derecho sobre `App.java` → **Run As > Java Application**.
+6. El programa se ejecutará en la consola de Eclipse.
